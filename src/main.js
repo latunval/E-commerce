@@ -11,9 +11,11 @@ import Jewelry from './components/Jewelry.vue'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 import Perfume from './components/Perfume.vue'
-
+import Footers from './components/Footer.vue'
+// import '@fortawesome/fontawesome-free/css/all.css'
 const app = createApp(App)
 app.component('nav-bar', NavBar)
+app.component('footers', Footers)
 app.component('perfume', Perfume)
 app.component('cloth', Clothes)
 app.component('jewelry', Jewelry)

@@ -34,6 +34,7 @@
       </div>
     </div>
   </div>
+  <footers />
 </template>
 
 <script>

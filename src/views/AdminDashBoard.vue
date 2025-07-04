@@ -33,13 +33,13 @@ export default {
   components: {
     PaymentVerification,
     OrderManagement,
-    CryptoWallets
+    CryptoWallets,
   },
   data() {
     return {
-      activeTab: 'payments'
+      activeTab: 'payments',
     }
-  }
+  },
 }
 </script>
 
