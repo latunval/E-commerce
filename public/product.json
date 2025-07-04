@@ -1,0 +1,488 @@
+{
+  "clothes": [
+    {
+      "id": 1,
+      "name": "Hudhi",
+      "image": "/image/hudhi.jpg",
+      "price": 2500,
+      "description": "Hudhi clothing or accessory.",
+      "moreImages": ["/image/hudhi.jpg", "/image/jalab-10.jpg"]
+    },
+    {
+      "id": 2,
+      "name": "Short Sleeve",
+      "image": "/image/short-sleeve.jpg",
+      "price": 1800,
+      "description": "Short sleeve clothing item.",
+      "moreImages": ["/image/short-sleeve.jpg", "/image/jalab-1.jpg"]
+    },
+    {
+      "id": 3,
+      "name": "Jalab 1",
+      "image": "/image/jalab-1.jpg",
+      "price": 3200,
+      "description": "Jalab clothing style 1.",
+      "moreImages": ["/image/jalab-1.jpg", "/image/jalab-2.jpg"]
+    },
+    {
+      "id": 4,
+      "name": "Jalab Kid",
+      "image": "/image/jalab-kid.jpg",
+      "price": 2100,
+      "description": "Jalab clothing for kids.",
+      "moreImages": ["/image/jalab-kid.jpg", "/image/jalab-3.jpg"]
+    },
+    {
+      "id": 5,
+      "name": "Jalab 2",
+      "image": "/image/jalab-2.jpg",
+      "price": 3300,
+      "description": "Jalab clothing style 2.",
+      "moreImages": ["/image/jalab-2.jpg", "/image/jalab-3.jpg"]
+    },
+    {
+      "id": 6,
+      "name": "Jalab 3",
+      "image": "/image/jalab-3.jpg",
+      "price": 3400,
+      "description": "Jalab clothing style 3.",
+      "moreImages": ["/image/jalab-3.jpg", "/image/jalab-4.jpg"]
+    },
+    {
+      "id": 7,
+      "name": "Jalab 4",
+      "image": "/image/jalab-4.jpg",
+      "price": 3500,
+      "description": "Jalab clothing style 4.",
+      "moreImages": ["/image/jalab-4.jpg", "/image/jalab-5.jpg"]
+    },
+    {
+      "id": 8,
+      "name": "Jalab 5",
+      "image": "/image/jalab-5.jpg",
+      "price": 3600,
+      "description": "Jalab clothing style 5.",
+      "moreImages": ["/image/jalab-5.jpg", "/image/jalab-6.jpg"]
+    },
+    {
+      "id": 9,
+      "name": "Jalab 6",
+      "image": "/image/jalab-6.jpg",
+      "price": 3700,
+      "description": "Jalab clothing style 6.",
+      "moreImages": ["/image/jalab-6.jpg", "/image/jalab-7.jpg"]
+    },
+    {
+      "id": 10,
+      "name": "Jalab 7",
+      "image": "/image/jalab-7.jpg",
+      "price": 3800,
+      "description": "Jalab clothing style 7.",
+      "moreImages": ["/image/jalab-7.jpg", "/image/jalab-8.jpg"]
+    },
+    {
+      "id": 11,
+      "name": "Jalab 8",
+      "image": "/image/jalab-8.jpg",
+      "price": 3900,
+      "description": "Jalab clothing style 8.",
+      "moreImages": ["/image/jalab-8.jpg", "/image/jalab-9.jpg"]
+    },
+    {
+      "id": 12,
+      "name": "Jalab 9",
+      "image": "/image/jalab-9.jpg",
+      "price": 4000,
+      "description": "Jalab clothing style 9.",
+      "moreImages": ["/image/jalab-9.jpg", "/image/jalab-10.jpg"]
+    },
+    {
+      "id": 13,
+      "name": "Jalab 10",
+      "image": "/image/jalab-10.jpg",
+      "price": 4100,
+      "description": "Jalab clothing style 10.",
+      "moreImages": ["/image/jalab-10.jpg", "/image/hudhi.jpg"]
+    },
+    {
+      "id": 14,
+      "name": "Short Sleeve 2",
+      "image": "/image/short-sleeve.jpg",
+      "price": 1850,
+      "description": "Short sleeve clothing item 2.",
+      "moreImages": ["/image/short-sleeve.jpg", "/image/jalab-2.jpg"]
+    },
+    {
+      "id": 15,
+      "name": "Short Sleeve 3",
+      "image": "/image/short-sleeve.jpg",
+      "price": 1900,
+      "description": "Short sleeve clothing item 3.",
+      "moreImages": ["/image/short-sleeve.jpg", "/image/jalab-3.jpg"]
+    },
+    {
+      "id": 16,
+      "name": "Hudhi 2",
+      "image": "/image/hudhi.jpg",
+      "price": 2550,
+      "description": "Hudhi clothing or accessory 2.",
+      "moreImages": ["/image/hudhi.jpg", "/image/jalab-4.jpg"]
+    },
+    {
+      "id": 17,
+      "name": "Hudhi 3",
+      "image": "/image/hudhi.jpg",
+      "price": 2600,
+      "description": "Hudhi clothing or accessory 3.",
+      "moreImages": ["/image/hudhi.jpg", "/image/jalab-5.jpg"]
+    },
+    {
+      "id": 18,
+      "name": "Jalab Kid 2",
+      "image": "/image/jalab-kid.jpg",
+      "price": 2150,
+      "description": "Jalab clothing for kids 2.",
+      "moreImages": ["/image/jalab-kid.jpg", "/image/jalab-6.jpg"]
+    },
+    {
+      "id": 19,
+      "name": "Jalab Kid 3",
+      "image": "/image/jalab-kid.jpg",
+      "price": 2200,
+      "description": "Jalab clothing for kids 3.",
+      "moreImages": ["/image/jalab-kid.jpg", "/image/jalab-7.jpg"]
+    },
+    {
+      "id": 20,
+      "name": "Jalab Kid 4",
+      "image": "/image/jalab-kid.jpg",
+      "price": 2250,
+      "description": "Jalab clothing for kids 4.",
+      "moreImages": ["/image/jalab-kid.jpg", "/image/jalab-8.jpg"]
+    }
+  ],
+  "jewelry": [
+    {
+      "id": 1,
+      "name": "Empress Bead",
+      "image": "/image/empress bead.jpg",
+      "price": 1200,
+      "description": "Empress bead jewelry.",
+      "moreImages": ["/image/empress bead.jpg", "/image/Long sheild-chain.avif"]
+    },
+    {
+      "id": 2,
+      "name": "Carat Plain Chain",
+      "image": "/image/carat-plain.avif",
+      "price": 3500,
+      "description": "Plain carat gold chain.",
+      "moreImages": ["/image/carat-plain.avif", "/image/carat-sheild.avif"]
+    },
+    {
+      "id": 3,
+      "name": "Men Gold Chain",
+      "image": "/image/men-gold-chain.jpg",
+      "price": 4000,
+      "description": "Men's gold chain jewelry.",
+      "moreImages": ["/image/men-gold-chain.jpg", "/image/Layed-gold-chain.jpg"]
+    },
+    {
+      "id": 4,
+      "name": "Silver Ring",
+      "image": "/image/silver-ring.avif",
+      "price": 900,
+      "description": "Silver ring jewelry.",
+      "moreImages": ["/image/silver-ring.avif"]
+    },
+    {
+      "id": 5,
+      "name": "Long Shield Chain",
+      "image": "/image/Long sheild-chain.avif",
+      "price": 2000,
+      "description": "Long shield style gold chain.",
+      "moreImages": ["/image/Long sheild-chain.avif", "/image/carat-sheild.avif"]
+    },
+    {
+      "id": 6,
+      "name": "Carat Shield Chain",
+      "image": "/image/carat-sheild.avif",
+      "price": 2100,
+      "description": "Carat gold chain with shield design.",
+      "moreImages": ["/image/carat-sheild.avif", "/image/carat-plain.avif"]
+    },
+    {
+      "id": 7,
+      "name": "Layed Gold Chain",
+      "image": "/image/Layed-gold-chain.jpg",
+      "price": 2200,
+      "description": "Layered gold chain jewelry.",
+      "moreImages": ["/image/Layed-gold-chain.jpg", "/image/men-gold-chain.jpg"]
+    },
+    {
+      "id": 8,
+      "name": "Men Gold Chain 2",
+      "image": "/image/men-gold-chain.jpg",
+      "price": 4100,
+      "description": "Men's gold chain jewelry 2.",
+      "moreImages": ["/image/men-gold-chain.jpg", "/image/Layed-gold-chain.jpg"]
+    },
+    {
+      "id": 9,
+      "name": "Silver Ring 2",
+      "image": "/image/silver-ring.avif",
+      "price": 950,
+      "description": "Silver ring jewelry 2.",
+      "moreImages": ["/image/silver-ring.avif"]
+    },
+    {
+      "id": 10,
+      "name": "Empress Bead 2",
+      "image": "/image/empress bead.jpg",
+      "price": 1250,
+      "description": "Empress bead jewelry 2.",
+      "moreImages": ["/image/empress bead.jpg", "/image/Long sheild-chain.avif"]
+    },
+    {
+      "id": 11,
+      "name": "Carat Plain Chain 2",
+      "image": "/image/carat-plain.avif",
+      "price": 3550,
+      "description": "Plain carat gold chain 2.",
+      "moreImages": ["/image/carat-plain.avif", "/image/carat-sheild.avif"]
+    },
+    {
+      "id": 12,
+      "name": "Men Gold Chain 3",
+      "image": "/image/men-gold-chain.jpg",
+      "price": 4200,
+      "description": "Men's gold chain jewelry 3.",
+      "moreImages": ["/image/men-gold-chain.jpg", "/image/Layed-gold-chain.jpg"]
+    },
+    {
+      "id": 13,
+      "name": "Silver Ring 3",
+      "image": "/image/silver-ring.avif",
+      "price": 1000,
+      "description": "Silver ring jewelry 3.",
+      "moreImages": ["/image/silver-ring.avif"]
+    },
+    {
+      "id": 14,
+      "name": "Long Shield Chain 2",
+      "image": "/image/Long sheild-chain.avif",
+      "price": 2050,
+      "description": "Long shield style gold chain 2.",
+      "moreImages": ["/image/Long sheild-chain.avif", "/image/carat-sheild.avif"]
+    },
+    {
+      "id": 15,
+      "name": "Carat Shield Chain 2",
+      "image": "/image/carat-sheild.avif",
+      "price": 2150,
+      "description": "Carat gold chain with shield design 2.",
+      "moreImages": ["/image/carat-sheild.avif", "/image/carat-plain.avif"]
+    },
+    {
+      "id": 16,
+      "name": "Layed Gold Chain 2",
+      "image": "/image/Layed-gold-chain.jpg",
+      "price": 2250,
+      "description": "Layered gold chain jewelry 2.",
+      "moreImages": ["/image/Layed-gold-chain.jpg", "/image/men-gold-chain.jpg"]
+    },
+    {
+      "id": 17,
+      "name": "Men Gold Chain 4",
+      "image": "/image/men-gold-chain.jpg",
+      "price": 4300,
+      "description": "Men's gold chain jewelry 4.",
+      "moreImages": ["/image/men-gold-chain.jpg", "/image/Layed-gold-chain.jpg"]
+    },
+    {
+      "id": 18,
+      "name": "Silver Ring 4",
+      "image": "/image/silver-ring.avif",
+      "price": 1050,
+      "description": "Silver ring jewelry 4.",
+      "moreImages": ["/image/silver-ring.avif"]
+    },
+    {
+      "id": 19,
+      "name": "Empress Bead 3",
+      "image": "/image/empress bead.jpg",
+      "price": 1300,
+      "description": "Empress bead jewelry 3.",
+      "moreImages": ["/image/empress bead.jpg", "/image/Long sheild-chain.avif"]
+    },
+    {
+      "id": 20,
+      "name": "Carat Plain Chain 3",
+      "image": "/image/carat-plain.avif",
+      "price": 3600,
+      "description": "Plain carat gold chain 3.",
+      "moreImages": ["/image/carat-plain.avif", "/image/carat-sheild.avif"]
+    }
+  ],
+  "perfume": [
+    {
+      "id": 1,
+      "name": "Bellavita Perfume",
+      "image": "/image/Bellavita-perfume.jpg",
+      "price": 5000,
+      "description": "Bellavita branded perfume bottle.",
+      "moreImages": ["/image/Bellavita-perfume.jpg", "/image/chanel-perfume.jpg"]
+    },
+    {
+      "id": 2,
+      "name": "Chanel Perfume",
+      "image": "/image/chanel-perfume.jpg",
+      "price": 6500,
+      "description": "Chanel branded perfume bottle.",
+      "moreImages": ["/image/chanel-perfume.jpg", "/image/dexvibe-perfume.jpg"]
+    },
+    {
+      "id": 3,
+      "name": "Dexvibe Perfume",
+      "image": "/image/dexvibe-perfume.jpg",
+      "price": 4200,
+      "description": "Dexvibe branded perfume bottle. Energetic and vibrant, perfect for daily wear. Features a lively blend of citrus and woods for all-day freshness.",
+      "moreImages": ["/image/dexvibe-perfume.jpg", "/image/Initio.webp"]
+    },
+    {
+      "id": 4,
+      "name": "Wild Stone Perfume",
+      "image": "/image/wild-stone-perfume.jpg",
+      "price": 3800,
+      "description": "Wild Stone branded perfume bottle. Masculine scent with woody and spicy undertones. A signature fragrance for confident individuals.",
+      "moreImages": ["/image/wild-stone-perfume.jpg", "/image/solo-perfume.jpg"]
+    },
+    {
+      "id": 5,
+      "name": "Chanel Perfume Mini",
+      "image": "/image/chanel-perfume.jpg",
+      "price": 3000,
+      "description": "Mini Chanel perfume bottle. Compact and travel-friendly, with the classic Chanel aroma. Ideal for on-the-go elegance.",
+      "moreImages": ["/image/chanel-perfume.jpg", "/image/dexvibe-perfume.jpg"]
+    },
+    {
+      "id": 6,
+      "name": "Wild Stone Perfume Special",
+      "image": "/image/wild-stone-perfume.jpg",
+      "price": 4000,
+      "description": "Special edition Wild Stone perfume. Limited release with unique fragrance notes, blending spicy and woody aromas for a memorable impression.",
+      "moreImages": ["/image/wild-stone-perfume.jpg", "/image/solo-perfume.jpg"]
+    },
+    {
+      "id": 7,
+      "name": "Solo Perfume",
+      "image": "/image/solo-perfume.jpg",
+      "price": 4100,
+      "description": "Solo branded perfume bottle. Subtle and refined, ideal for evening occasions. Leaves a gentle, lasting scent that is both modern and classic.",
+      "moreImages": ["/image/solo-perfume.jpg", "/image/touch-perfum.jpg"]
+    },
+    {
+      "id": 8,
+      "name": "Touch Perfume",
+      "image": "/image/touch-perfum.jpg",
+      "price": 4200,
+      "description": "Touch branded perfume bottle. Soft, powdery scent with a hint of musk. Perfect for those who appreciate understated elegance.",
+      "moreImages": ["/image/touch-perfum.jpg", "/image/wild-stone-perfume.jpg"]
+    },
+    {
+      "id": 9,
+      "name": "Initio Perfume",
+      "image": "/image/Initio.webp",
+      "price": 4300,
+      "description": "Initio branded perfume bottle. Bold and mysterious, for those who love to make a statement. Features deep, complex notes for a unique experience.",
+      "moreImages": ["/image/Initio.webp", "/image/Bellavita-perfume.jpg"]
+    },
+    {
+      "id": 10,
+      "name": "Sauvage Perfume",
+      "image": "/image/savage.webp",
+      "price": 4400,
+      "description": "Sauvage branded perfume bottle. Fresh, spicy, and invigorating, inspired by the wild. Long-lasting scent for adventurous spirits.",
+      "moreImages": ["/image/savage.webp", "/image/chanel-perfume.jpg"]
+    },
+    {
+      "id": 11,
+      "name": "Dexvibe Perfume 2",
+      "image": "/image/dexvibe-perfume.jpg",
+      "price": 4250,
+      "description": "Dexvibe branded perfume bottle 2. A lively blend of citrus and woods for all-day freshness. Energetic and vibrant, perfect for daily wear.",
+      "moreImages": ["/image/dexvibe-perfume.jpg", "/image/Initio.webp"]
+    },
+    {
+      "id": 12,
+      "name": "Wild Stone Perfume 2",
+      "image": "/image/wild-stone-perfume.jpg",
+      "price": 3850,
+      "description": "Wild Stone branded perfume bottle 2. A deeper, richer version of the classic scent. Masculine and bold, with a touch of mystery.",
+      "moreImages": ["/image/wild-stone-perfume.jpg", "/image/solo-perfume.jpg"]
+    },
+    {
+      "id": 13,
+      "name": "Chanel Perfume Mini 2",
+      "image": "/image/chanel-perfume.jpg",
+      "price": 3050,
+      "description": "Mini Chanel perfume bottle 2. The perfect accessory for your purse or travel bag. Classic Chanel aroma in a compact size.",
+      "moreImages": ["/image/chanel-perfume.jpg", "/image/dexvibe-perfume.jpg"]
+    },
+    {
+      "id": 14,
+      "name": "Wild Stone Perfume Special 2",
+      "image": "/image/wild-stone-perfume.jpg",
+      "price": 4050,
+      "description": "Special edition Wild Stone perfume 2. A collector's item with a unique aroma profile. Limited edition for fragrance enthusiasts.",
+      "moreImages": ["/image/wild-stone-perfume.jpg", "/image/solo-perfume.jpg"]
+    },
+    {
+      "id": 15,
+      "name": "Solo Perfume 2",
+      "image": "/image/solo-perfume.jpg",
+      "price": 4150,
+      "description": "Solo branded perfume bottle 2. A new twist on a classic favorite. Elegant and modern, with a subtle, lingering scent.",
+      "moreImages": ["/image/solo-perfume.jpg", "/image/touch-perfum.jpg"]
+    },
+    {
+      "id": 16,
+      "name": "Touch Perfume 2",
+      "image": "/image/touch-perfum.jpg",
+      "price": 4250,
+      "description": "Touch branded perfume bottle 2. Delicate and long-lasting, with a modern edge. Ideal for both day and night wear.",
+      "moreImages": ["/image/touch-perfum.jpg", "/image/wild-stone-perfume.jpg"]
+    },
+    {
+      "id": 17,
+      "name": "Initio Perfume 2",
+      "image": "/image/Initio.webp",
+      "price": 4350,
+      "description": "Initio branded perfume bottle 2. For those who dare to be different. Deep, mysterious notes for a bold personality.",
+      "moreImages": ["/image/Initio.webp", "/image/Bellavita-perfume.jpg"]
+    },
+    {
+      "id": 18,
+      "name": "Sauvage Perfume 2",
+      "image": "/image/savage.webp",
+      "price": 4450,
+      "description": "Sauvage branded perfume bottle 2. Crisp and bold, for the adventurous spirit. A fragrance that stands out in any crowd.",
+      "moreImages": ["/image/savage.webp", "/image/chanel-perfume.jpg"]
+    },
+    {
+      "id": 19,
+      "name": "Dexvibe Perfume 3",
+      "image": "/image/dexvibe-perfume.jpg",
+      "price": 4300,
+      "description": "Dexvibe branded perfume bottle 3. A fresh take on a popular scent. Bright and lively, perfect for any occasion.",
+      "moreImages": ["/image/dexvibe-perfume.jpg", "/image/Initio.webp"]
+    },
+    {
+      "id": 20,
+      "name": "Wild Stone Perfume 3",
+      "image": "/image/wild-stone-perfume.jpg",
+      "price": 3900,
+      "description": "Wild Stone branded perfume bottle 3. A signature scent for any occasion. Masculine, confident, and unforgettable.",
+      "moreImages": ["/image/wild-stone-perfume.jpg", "/image/solo-perfume.jpg"]
+    }
+  ]
+}

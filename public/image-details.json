@@ -1,0 +1,20 @@
+{
+  "clothes": [
+    { "id": 1, "name": "Hudhi", "file": "/image/hudhi.jpg", "price": 2500, "description": "Hudhi clothing or accessory.", "moreImages": ["/image/hudhi.jpg", "/image/jalab-10.jpg"] },
+    { "id": 2, "name": "Short Sleeve", "file": "/image/short-sleeve.jpg", "price": 1800, "description": "Short sleeve clothing item.", "moreImages": ["/image/short-sleeve.jpg", "/image/jalab-1.jpg"] },
+    { "id": 3, "name": "Jalab 1", "file": "/image/jalab-1.jpg", "price": 3200, "description": "Jalab clothing style 1.", "moreImages": ["/image/jalab-1.jpg", "/image/jalab-2.jpg"] },
+    { "id": 4, "name": "Jalab Kid", "file": "/image/jalab-kid.jpg", "price": 2100, "description": "Jalab clothing for kids.", "moreImages": ["/image/jalab-kid.jpg", "/image/jalab-3.jpg"] }
+  ],
+  "jewelry": [
+    { "id": 5, "name": "Empress Bead", "file": "/image/empress bead.jpg", "price": 1200, "description": "Empress bead jewelry.", "moreImages": ["/image/empress bead.jpg", "/image/Long sheild-chain.avif"] },
+    { "id": 6, "name": "Carat Plain Chain", "file": "/image/carat-plain.avif", "price": 3500, "description": "Plain carat gold chain.", "moreImages": ["/image/carat-plain.avif", "/image/carat-sheild.avif"] },
+    { "id": 7, "name": "Men Gold Chain", "file": "/image/men-gold-chain.jpg", "price": 4000, "description": "Men's gold chain jewelry.", "moreImages": ["/image/men-gold-chain.jpg", "/image/Layed-gold-chain.jpg"] },
+    { "id": 8, "name": "Silver Ring", "file": "/image/silver-ring.avif", "price": 900, "description": "Silver ring jewelry.", "moreImages": ["/image/silver-ring.avif"] }
+  ],
+  "perfume": [
+    { "id": 9, "name": "Bellavita Perfume", "file": "/image/Bellavita-perfume.jpg", "price": 5000, "description": "Bellavita branded perfume bottle.", "moreImages": ["/image/Bellavita-perfume.jpg", "/image/chanel-perfume.jpg"] },
+    { "id": 10, "name": "Chanel Perfume", "file": "/image/chanel-perfume.jpg", "price": 6500, "description": "Chanel branded perfume bottle.", "moreImages": ["/image/chanel-perfume.jpg", "/image/dexvibe-perfume.jpg"] },
+    { "id": 11, "name": "Dexvibe Perfume", "file": "/image/dexvibe-perfume.jpg", "price": 4200, "description": "Dexvibe branded perfume bottle.", "moreImages": ["/image/dexvibe-perfume.jpg", "/image/Initio.webp"] },
+    { "id": 12, "name": "Wild Stone Perfume", "file": "/image/wild-stone-perfume.jpg", "price": 3800, "description": "Wild Stone branded perfume bottle.", "moreImages": ["/image/wild-stone-perfume.jpg", "/image/solo-perfume.jpg"] }
+  ]
+}
