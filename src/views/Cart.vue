@@ -1,4 +1,5 @@
 <template>
+  <nav-bar />
   <div class="cart-page">
     <h2>🛒 Your Cart</h2>
 
@@ -26,7 +27,6 @@
       <div class="summary">
         <h3>Total: ₦{{ totalPrice }}</h3>
         <router-link to="/checkout" class="btn btn-success">Proceed to Checkout</router-link>
-
       </div>
     </div>
   </div>
@@ -36,13 +36,13 @@
 export default {
   data() {
     return {
-      cart: []
+      cart: [],
     }
   },
   computed: {
     totalPrice() {
       return this.cart.reduce((sum, item) => sum + item.price * item.quantity, 0).toFixed(2)
-    }
+    },
   },
   mounted() {
     const storedCart = localStorage.getItem('cart')
@@ -55,8 +55,8 @@ export default {
     removeItem(index) {
       this.cart.splice(index, 1)
       this.updateCart()
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -81,7 +81,7 @@ export default {
 .info {
   flex: 1;
 }
-input[type="number"] {
+input[type='number'] {
   width: 60px;
   margin-left: 8px;
 }

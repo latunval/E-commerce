@@ -1,10 +1,11 @@
 <template>
+  <nav-bar />
   <div class="checkout-page">
     <h2>🧾 Checkout</h2>
-    
+
     <div class="checkout-steps">
-      <div 
-        v-for="(step, index) in steps" 
+      <div
+        v-for="(step, index) in steps"
         :key="step.id"
         :class="{ active: currentStep === index, completed: currentStep > index }"
         @click="goToStep(index)"
@@ -43,7 +44,7 @@
 
     <div v-if="currentStep === 1" class="payment-section">
       <PaymentSelection ref="paymentComponent" />
-      
+
       <div class="wishlist-section" v-if="wishlist.length > 0">
         <h4>⭐ Items from your Wishlist</h4>
         <div class="wishlist-items">
@@ -52,10 +53,7 @@
             <div class="item-info">
               <h5>{{ item.name }}</h5>
               <p>₦{{ item.price.toFixed(2) }}</p>
-              <button 
-                @click="addFromWishlist(item)" 
-                class="btn btn-sm btn-success"
-              >
+              <button @click="addFromWishlist(item)" class="btn btn-sm btn-success">
                 Add to Order
               </button>
             </div>
@@ -79,10 +77,11 @@
           <p>{{ form.phone }}</p>
           <p>{{ form.email }}</p>
         </div>
-        
+
         <div class="payment-info">
           <h5>Payment Method</h5>
           <p>{{ paymentMethodDisplay }}</p>
+          <p v-if="paymentMethodNotes" class="payment-note">{{ paymentMethodNotes }}</p>
         </div>
 
         <div class="order-items">
@@ -138,7 +137,8 @@ export default {
       cart: [],
       wishlist: [],
       shippingFee: 1500,
-      isLoading: false
+      isLoading: false,
+      formErrors: {}
     }
   },
   computed: {
@@ -151,9 +151,19 @@ export default {
     paymentMethodDisplay() {
       const method = this.$refs.paymentComponent?.selectedMethod
       if (!method) return ''
-      
+
       const found = this.$refs.paymentComponent.paymentMethods.find(m => m.id === method)
       return found ? found.name : ''
+    },
+    paymentMethodNotes() {
+      const method = this.$refs.paymentComponent?.selectedMethod
+      if (method === 'bank_transfer') {
+        return 'Please make transfer to Access Bank - 0123456789 (Elysian Fashion Hub)'
+      }
+      if (method === 'crypto') {
+        return 'Please complete payment and upload proof'
+      }
+      return ''
     }
   },
   mounted() {
@@ -163,7 +173,7 @@ export default {
   },
   methods: {
     checkAuth() {
-      const user = 
+      const user =
         localStorage.getItem('loggedInUser') ||
         sessionStorage.getItem('loggedInUser')
 
@@ -196,6 +206,24 @@ export default {
       }
     },
     goToNextStep() {
+      // Validate form before proceeding from step 0
+      if (this.currentStep === 0) {
+        const valid = this.validateForm()
+        if (valid !== true) {
+          window.showToast(valid)
+          return
+        }
+      }
+
+      // Validate payment before proceeding from step 1
+      if (this.currentStep === 1 && this.$refs.paymentComponent?.selectedMethod === 'card') {
+        const valid = this.$refs.paymentComponent.validateCardDetails()
+        if (!valid) {
+          window.showToast('Please fix payment details')
+          return
+        }
+      }
+
       if (this.currentStep < this.steps.length - 1) {
         this.currentStep++
       }
@@ -206,62 +234,136 @@ export default {
       }
     },
     validateForm() {
-      if (!this.form.name.trim()) return 'Name is required'
-      if (!this.form.email.trim()) return 'Email is required'
-      if (!this.form.phone.trim()) return 'Phone number is required'
-      if (!this.form.address.trim()) return 'Address is required'
-      return true
+      this.formErrors = {}
+      let isValid = true
+
+      if (!this.form.name.trim()) {
+        this.formErrors.name = 'Name is required'
+        isValid = false
+      }
+
+      if (!this.form.email.trim()) {
+        this.formErrors.email = 'Email is required'
+        isValid = false
+      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.form.email)) {
+        this.formErrors.email = 'Please enter a valid email'
+        isValid = false
+      }
+
+      if (!this.form.phone.trim()) {
+        this.formErrors.phone = 'Phone number is required'
+        isValid = false
+      } else if (!/^[\d\s\+\-\(\)]{10,}$/.test(this.form.phone)) {
+        this.formErrors.phone = 'Please enter a valid phone number'
+        isValid = false
+      }
+
+      if (!this.form.address.trim()) {
+        this.formErrors.address = 'Address is required'
+        isValid = false
+      } else if (this.form.address.trim().length < 10) {
+        this.formErrors.address = 'Address is too short'
+        isValid = false
+      }
+
+      return isValid ? true : Object.values(this.formErrors)[0]
     },
     async placeOrder() {
-      if (this.isLoading) return
-      
-      const validation = this.validateForm()
-      if (validation !== true) {
-        window.showToast(validation)
+      console.log('Attempting to place order...') // Debug log
+
+      if this.isLoading) return
+
+      // Final form validation
+      const formValid = this.validateForm()
+      if (formValid !== true) {
+        window.showToast(formValid)
         return
       }
 
+      // Check cart not empty
       if (!this.cart.length) {
         window.showToast('Your cart is empty.')
         return
       }
 
+      // Payment validation
+      if (this.$refs.paymentComponent?.selectedMethod === 'card') {
+        const paymentValid = this.$refs.paymentComponent.validateCardDetails()
+        if (!paymentValid) {
+          window.showToast('Please fix payment details')
+          return
+        }
+      }
+
       this.isLoading = true
+      console.log('All validations passed, creating order...') // Debug log
 
       try {
-        const loggedInUser = 
+        // Get user data
+        const userData =
           JSON.parse(localStorage.getItem('loggedInUser')) ||
           JSON.parse(sessionStorage.getItem('loggedInUser'))
 
-        const paymentData = this.$refs.paymentComponent.getPaymentData()
+        if (!userData) {
+          throw new Error('User session expired. Please log in again.')
+        }
 
+        // Get payment data
+        const paymentData = this.$refs.paymentComponent?.getPaymentData() || {}
+        if (paymentData.error) {
+          throw new Error(paymentData.error)
+        }
+
+        // Create order object
         const order = {
-          id: Date.now().toString(),
-          customer: loggedInUser,
+          id: 'ORD-' + Date.now().toString(),
+          customer: {
+            id: userData.id,
+            name: userData.name,
+            email: userData.email
+          },
           shippingInfo: { ...this.form },
-          paymentInfo: paymentData,
-          items: [...this.cart],
+          payment: {
+            ...paymentData,
+            status: paymentData.method === 'pay_on_delivery' ? 'pending' : 'pending_verification'
+          },
+          items: this.cart.map(item => ({
+            id: item.id,
+            name: item.name,
+            price: item.price,
+            quantity: item.quantity,
+            image: item.image
+          })),
           subtotal: this.subtotal,
           shippingFee: this.shippingFee,
           total: this.totalPrice,
-          placedAt: new Date().toISOString(),
-          status: 'processing'
+          status: 'pending',
+          placedAt: new Date().toISOString()
         }
 
-        // Save order
+        console.log('Order object:', order) // Debug log
+
+        // Save order to localStorage (replace with API call in production)
         const orders = JSON.parse(localStorage.getItem('orders') || '[]')
         orders.push(order)
         localStorage.setItem('orders', JSON.stringify(orders))
-        
+
         // Clear cart
         localStorage.removeItem('cart')
         this.cart = []
 
+        console.log('Order saved, navigating to thank you page...') // Debug log
         window.showToast('🎉 Order placed successfully!')
-        this.$router.push('/thank-you')
+
+        // Navigate to thank you page
+        this.$router.push('/thank-you').catch(err => {
+          console.error('Navigation error:', err)
+          this.$router.push('/account') // Fallback
+        })
+
       } catch (error) {
-        console.error('Order placement failed:', error)
-        window.showToast('Failed to place order. Please try again.')
+        console.error('Order placement error:', error)
+        window.showToast(error.message || 'Failed to place order. Please try again.')
       } finally {
         this.isLoading = false
       }
@@ -308,13 +410,13 @@ export default {
 }
 
 .checkout-steps > div.active {
-  border-color: #4CAF50;
-  background: #4CAF50;
+  border-color: #4caf50;
+  background: #4caf50;
   color: white;
 }
 
 .checkout-steps > div.completed {
-  border-color: #4CAF50;
+  border-color: #4caf50;
   background: #e8f5e9;
 }
 
@@ -341,22 +443,40 @@ textarea {
   border-radius: 6px;
   cursor: pointer;
   border: none;
+  transition: background 0.3s;
 }
 
 .btn-primary {
-  background: #4CAF50;
+  background: #4caf50;
   color: white;
+}
+
+.btn-primary:hover {
+  background: #3d8b40;
 }
 
 .btn-outline {
   background: transparent;
-  border: 1px solid #4CAF50;
-  color: #4CAF50;
+  border: 1px solid #4caf50;
+  color: #4caf50;
+}
+
+.btn-outline:hover {
+  background: #f0fff0;
 }
 
 .btn-success {
-  background: #4CAF50;
+  background: #4caf50;
   color: white;
+}
+
+.btn-success:hover {
+  background: #3d8b40;
+}
+
+.btn-success:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
 }
 
 .btn-sm {
@@ -402,8 +522,16 @@ textarea {
   border-radius: 8px;
 }
 
-.shipping-info, .payment-info, .order-items {
+.shipping-info,
+.payment-info,
+.order-items {
   margin-bottom: 20px;
+}
+
+.payment-note {
+  font-size: 0.9em;
+  color: #666;
+  margin-top: 5px;
 }
 
 .order-item {
@@ -435,5 +563,11 @@ textarea {
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
+}
+
+.error-message {
+  color: #f44336;
+  font-size: 0.8em;
+  margin-top: 5px;
 }
 </style>

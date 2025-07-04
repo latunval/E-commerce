@@ -1,12 +1,30 @@
 <template>
   <div>
     <section>
-      <div class="product" v-for="item in product" :key="item">
+      <div class="product" v-for="item in product" :key="item.id">
         <p>
           <span>{{ item.name }}</span> <span>₦{{ item.price }}</span>
         </p>
-        <img :src="item.image" :alt="item.name" />
-        <router-link :to="`/products/${item.id}`">View Details</router-link>
+        <img :src="item.image" :alt="item.name" @click="view(item.id)" style="cursor: pointer" />
+        <p @click="view(item.id)" class="view-link" style="cursor: pointer; color: #007bff">
+          View Details
+          <span
+            v-if="loadingId === item.id"
+            class="spinner-grow spinner-grow-sm"
+            role="status"
+            style="
+              background-color: red;
+              display: inline-block;
+              margin-left: 8px;
+              vertical-align: middle;
+            "
+          >
+            <span class="visually-hidden text-danger">Loading...</span>
+          </span>
+        </p>
+        <button class="btn btn-success btn-sm mt-2" @click.stop="addToCart(item)">
+          Add to Cart
+        </button>
       </div>
     </section>
     <jewelry />
@@ -19,13 +37,37 @@ export default {
   data() {
     return {
       product: null,
+      loadingId: null,
     }
   },
   async mounted() {
     const response = await fetch('/product.json')
     const supply = await response.json()
-    console.log(supply)
     this.product = supply.clothes
+  },
+  methods: {
+    view(itemId) {
+      this.loadingId = itemId
+      setTimeout(() => {
+        this.loadingId = null
+      }, 1500) // Spinner will show for 1.5 seconds
+      this.$router.push(`/products/${itemId}`)
+    },
+    addToCart(item) {
+      const cart = JSON.parse(localStorage.getItem('cart') || '[]')
+      const found = cart.find((p) => p.id === item.id)
+      if (found) {
+        found.quantity += 1
+      } else {
+        cart.push({ ...item, quantity: 1 })
+      }
+      localStorage.setItem('cart', JSON.stringify(cart))
+      if (window.showToast) {
+        window.showToast(`${item.name} added to cart!`)
+      } else {
+        alert(`${item.name} added to cart!`)
+      }
+    },
   },
 }
 </script>

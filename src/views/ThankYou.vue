@@ -1,4 +1,5 @@
 <template>
+  <nav-bar />
   <div class="thank-you-page">
     <h2>🎉 Thank You for Your Order!</h2>
     <p>Your order has been placed successfully.</p>
@@ -25,20 +26,20 @@ export default {
   data() {
     return {
       orderId: '',
-      order: null
+      order: null,
     }
   },
   computed: {
     orderDate() {
       if (!this.order?.placedAt) return ''
       return new Date(this.order.placedAt).toLocaleString()
-    }
+    },
   },
   mounted() {
     this.orderId = localStorage.getItem('lastOrderId')
     const orders = JSON.parse(localStorage.getItem('orders') || '[]')
     this.order = orders.find((_, i) => i.toString() === this.orderId)
-  }
+  },
 }
 </script>
 

@@ -92,7 +92,7 @@ export default {
   methods: {
     loadOrders() {
       // In a real app, this would be an API call
-      const orders = JSON.parse(localStorage.getItem('orders') || []
+      const orders = JSON.parse(localStorage.getItem('orders') || [])
       this.orders = orders.map(order => ({
         ...order,
         newStatus: order.status,

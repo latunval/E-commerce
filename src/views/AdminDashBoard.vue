@@ -1,4 +1,5 @@
 <template>
+  <nav-bar />
   <div class="admin-dashboard">
     <div class="sidebar">
       <h3>Elysian Admin</h3>

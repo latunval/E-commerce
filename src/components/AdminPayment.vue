@@ -111,7 +111,7 @@ export default {
   methods: {
     async fetchPayments() {
       // In a real app, this would be an API call
-      const orders = JSON.parse(localStorage.getItem('orders') || []
+      const orders = JSON.parse(localStorage.getItem('orders') || [])
       this.payments = orders.map(order => ({
         id: order.id,
         orderId: order.id,
@@ -170,7 +170,7 @@ export default {
         }
         
         // Update orders in localStorage
-        const orders = JSON.parse(localStorage.getItem('orders') || []
+        const orders = JSON.parse(localStorage.getItem('orders') || [])
         const orderIndex = orders.findIndex(o => o.id === paymentId)
         if (orderIndex !== -1) {
           orders[orderIndex].status = isVerified ? 'processing' : 'payment_failed'

@@ -1,7 +1,10 @@
 <template>
+  <nav-bar />
   <div class="invoice-page" ref="invoice">
     <h2>🧾 Invoice</h2>
-    <p><strong>Order #{{ orderId }}</strong></p>
+    <p>
+      <strong>Order #{{ orderId }}</strong>
+    </p>
     <p>Date: {{ formatDate(order?.placedAt) }}</p>
 
     <hr />
@@ -38,7 +41,7 @@ export default {
   data() {
     return {
       order: null,
-      orderId: this.$route.params.orderId
+      orderId: this.$route.params.orderId,
     }
   },
   mounted() {
@@ -51,8 +54,8 @@ export default {
     },
     printInvoice() {
       window.print()
-    }
-  }
+    },
+  },
 }
 </script>
 
