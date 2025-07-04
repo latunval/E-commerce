@@ -271,7 +271,7 @@ export default {
     async placeOrder() {
       console.log('Attempting to place order...') // Debug log
 
-      if this.isLoading) return
+      if(this.isLoading) return
 
       // Final form validation
       const formValid = this.validateForm()
