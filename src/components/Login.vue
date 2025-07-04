@@ -18,12 +18,19 @@
         <input v-model="form.name" type="text" required />
       </div>
 
-      <button type="submit" class="btn btn-primary">
+      <div class="form-group">
+        <label>
+          <input type="checkbox" v-model="rememberMe" />
+          Remember Me
+        </label>
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100 mt-2">
         {{ isLogin ? 'Login' : 'Sign Up' }}
       </button>
 
-      <p class="toggle">
-        {{ isLogin ? "Don't have an account?" : "Already have an account?" }}
+      <p class="toggle text-center mt-3">
+        {{ isLogin ? "Don't have an account?" : 'Already have an account?' }}
         <span @click="isLogin = !isLogin">
           {{ isLogin ? 'Sign Up' : 'Login' }}
         </span>
@@ -37,11 +44,18 @@ export default {
   data() {
     return {
       isLogin: true,
+      rememberMe: false,
       form: {
         email: '',
         password: '',
-        name: ''
-      }
+        name: '',
+      },
+    }
+  },
+  mounted() {
+    const already = localStorage.getItem('loggedInUser') || sessionStorage.getItem('loggedInUser')
+    if (already) {
+      this.$router.push('/') // redirect if already logged in
     }
   },
   methods: {
@@ -49,24 +63,40 @@ export default {
       const users = JSON.parse(localStorage.getItem('users') || '[]')
 
       if (this.isLogin) {
-        const user = users.find(u => u.email === this.form.email && u.password === this.form.password)
+        const user = users.find(
+          u => u.email === this.form.email && u.password === this.form.password
+        )
+
         if (!user) {
-          alert('Invalid email or password')
+          window.showToast('❌ Invalid email or password')
           return
         }
-        localStorage.setItem('loggedInUser', JSON.stringify(user))
-        alert('Logged in successfully')
+
+        if (this.rememberMe) {
+          localStorage.setItem('loggedInUser', JSON.stringify(user))
+        } else {
+          sessionStorage.setItem('loggedInUser', JSON.stringify(user))
+        }
+
+        window.showToast('✅ Logged in successfully!')
         this.$router.push('/')
       } else {
         if (users.find(u => u.email === this.form.email)) {
-          alert('Email already in use')
+          window.showToast('⚠️ Email already in use')
           return
         }
+
         const newUser = { ...this.form }
         users.push(newUser)
         localStorage.setItem('users', JSON.stringify(users))
-        localStorage.setItem('loggedInUser', JSON.stringify(newUser))
-        alert('Account created and logged in!')
+
+        if (this.rememberMe) {
+          localStorage.setItem('loggedInUser', JSON.stringify(newUser))
+        } else {
+          sessionStorage.setItem('loggedInUser', JSON.stringify(newUser))
+        }
+
+        window.showToast('🎉 Account created and logged in!')
         this.$router.push('/')
       }
     }
@@ -83,19 +113,21 @@ export default {
 .form-group {
   margin-bottom: 16px;
 }
-input {
+input[type='text'],
+input[type='email'],
+input[type='password'] {
   width: 100%;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 6px;
 }
 .toggle {
-  margin-top: 14px;
   font-size: 0.9rem;
 }
 .toggle span {
   color: blue;
   cursor: pointer;
   margin-left: 6px;
+  text-decoration: underline;
 }
 </style>

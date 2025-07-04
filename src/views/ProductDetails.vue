@@ -1,25 +1,30 @@
 <template>
-  <div v-if="product" class="details">
-    <h2>{{ product.name }}</h2>
-    <p><strong>Price:</strong> ₦{{ product.price }}</p>
-    <img :src="product.image" :alt="product.name" />
-
-    <p style="margin-top: 1rem">{{ product.description }}</p>
-
-    <div v-if="product.moreImages && product.moreImages.length">
-      <h4>More Images:</h4>
-      <div class="gallery">
-        <img v-for="(img, i) in product.moreImages" :key="i" :src="img" />
+  <div v-if="product" class="container py-4">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 col-md-10 col-12">
+        <div class="card shadow-sm border-0 mb-4">
+          <div class="card-body text-center">
+            <h2 class="card-title mb-3">{{ product.name }}</h2>
+            <p class="h5 mb-2 text-success"><strong>Price:</strong> ₦{{ product.price }}</p>
+            <img :src="product.image" :alt="product.name" class="img-fluid rounded mb-3" style="max-width:350px;" />
+            <p class="card-text mb-3">{{ product.description }}</p>
+            <div v-if="product.moreImages && product.moreImages.length">
+              <h5 class="mb-2">More Images:</h5>
+              <div class="d-flex flex-wrap justify-content-center gap-3 mb-3">
+                <img v-for="(img, i) in product.moreImages" :key="i" :src="img" class="rounded border bg-light" style="width:110px;height:110px;object-fit:cover;cursor:pointer;transition:box-shadow .2s,border .2s;" @mouseover="e=>e.target.style.boxShadow='0 2px 12px #f68b1e55'" @mouseleave="e=>e.target.style.boxShadow=''" />
+              </div>
+            </div>
+            <router-link to="/product" class="btn btn-warning fw-bold px-4 py-2 mt-2">← Back to Shop</router-link>
+          </div>
+        </div>
       </div>
     </div>
-
-    <!-- Back to shop -->
-    <router-link to="/product/:id" class="back-button">← Back to Shop</router-link>
   </div>
-
-  <div v-else class="not-found">
-    <h2>Product not found 😢</h2>
-    <router-link to="/product" class="back-button">← Return to Shop</router-link>
+  <div v-else class="container py-5">
+    <div class="alert alert-warning text-center">
+      <h2>Product not found 😢</h2>
+      <router-link to="/product" class="btn btn-warning fw-bold mt-3">← Return to Shop</router-link>
+    </div>
   </div>
 </template>
 
@@ -48,40 +53,21 @@ export default {
 </script>
 
 <style scoped>
-.details{
-  border: 2px solid red;
-  width: 50%;
-  margin: 10px auto;
+.card-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #222;
 }
-img {
-  max-width: 100%;
-  border-radius: 12px;
-  margin-top: 12px;
+.card-text {
+  font-size: 1.1rem;
+  color: #444;
 }
-.gallery {
-  display: flex;
-  gap: 10px;
-  margin: 12px auto;
-  border: 2px solid red;
-  width: 90%;
-}
-.gallery img {
-  width: 200px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-}
-.back-button {
-  display: inline-block;
-  margin-top: 20px;
-  padding: 8px 14px;
-  background: #eee;
-  border-radius: 8px;
-  text-decoration: none;
-  color: #333;
-  font-weight: 500;
-}
-.not-found {
-  text-align: center;
-  padding: 40px;
+@media (max-width: 700px) {
+  .card-body {
+    padding: 1rem 0.3rem !important;
+  }
+  .card-title {
+    font-size: 1.3rem;
+  }
 }
 </style>
