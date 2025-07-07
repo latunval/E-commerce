@@ -1,39 +1,46 @@
 <template>
-  <nav-bar />
-  <div class="cart-page">
-    <h2>🛒 Your Cart</h2>
+  <div>
+    <nav-bar />
+    <div class="cart-page">
+      <h2>🛒 Your Cart</h2>
 
-    <div v-if="cart.length === 0">
-      <p>Your cart is empty.</p>
-      <router-link to="/" class="btn btn-primary mt-2">Back to Shop</router-link>
-    </div>
-
-    <div v-else>
-      <div class="cart-item" v-for="(item, index) in cart" :key="item.id">
-        <img :src="item.image" :alt="item.name" />
-        <div class="info">
-          <h4>{{ item.name }}</h4>
-          <p>₦{{ item.price }} x {{ item.quantity }} = ₦{{ item.price * item.quantity }}</p>
-
-          <label>
-            Quantity:
-            <input type="number" v-model.number="item.quantity" @change="updateCart" min="1" />
-          </label>
-
-          <button class="btn btn-sm btn-danger" @click="removeItem(index)">Remove</button>
-        </div>
+      <div v-if="cart.length === 0">
+        <p>Your cart is empty.</p>
+        <router-link to="/" class="btn btn-primary mt-2">Back to Shop</router-link>
       </div>
 
-      <div class="summary">
-        <h3>Total: ₦{{ totalPrice }}</h3>
-        <router-link to="/checkout" class="btn btn-success">Proceed to Checkout</router-link>
+      <div v-else>
+        <div class="cart-item" v-for="(item, index) in cart" :key="item.id">
+          <img :src="item.image" :alt="item.name" />
+          <div class="info">
+            <h4>{{ item.name }}</h4>
+            <p>₦{{ item.price }} x {{ item.quantity }} = ₦{{ item.price * item.quantity }}</p>
+
+            <label>
+              Quantity:
+              <input type="number" v-model.number="item.quantity" @change="updateCart" min="1" />
+            </label>
+
+            <button class="btn btn-sm btn-danger" @click="removeItem(index)">Remove</button>
+          </div>
+        </div>
+
+        <div class="summary">
+          <h3>Total: ₦{{ totalPrice }}</h3>
+          <router-link to="/checkout" class="btn btn-success">Proceed to Checkout</router-link>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import navBar from '../components/NavBar.vue'
+
 export default {
+  components: {
+    navBar,
+  },
   data() {
     return {
       cart: [],

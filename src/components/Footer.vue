@@ -14,24 +14,24 @@
 
       <div class="footer-section">
         <h4>Quick Links</h4>
-        <ul class="footer-links">
+        <!-- <ul class="footer-links">
           <li><router-link to="/">Home</router-link></li>
           <li><router-link to="/shop">Shop</router-link></li>
           <li><router-link to="/about">About Us</router-link></li>
           <li><router-link to="/contact">Contact</router-link></li>
           <li><router-link to="/blog">Blog</router-link></li>
-        </ul>
+        </ul> -->
       </div>
 
       <div class="footer-section">
         <h4>Customer Service</h4>
-        <ul class="footer-links">
+        <!-- <ul class="footer-links">
           <li><router-link to="/faq">FAQ</router-link></li>
           <li><router-link to="/shipping">Shipping Policy</router-link></li>
           <li><router-link to="/returns">Return Policy</router-link></li>
           <li><router-link to="/privacy">Privacy Policy</router-link></li>
           <li><router-link to="/terms">Terms of Service</router-link></li>
-        </ul>
+        </ul> -->
       </div>
 
       <div class="footer-section">

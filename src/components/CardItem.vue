@@ -17,9 +17,12 @@
           <div class="card-body">
             <h5 class="card-title">{{ item.name }}</h5>
             <p class="card-text">₦{{ item.price }}</p>
-            <router-link :to="`/products/${item.id}`" class="btn btn-outline-primary btn-sm"
+            <router-link :to="`/products/${item.id}`" class="btn btn-outline-primary btn-sm mb-2"
               >View Details</router-link
             >
+            <button class="btn btn-success btn-sm w-100" @click="addToCart(item)">
+              Add to Cart
+            </button>
           </div>
         </div>
       </div>
@@ -38,9 +41,12 @@
           <div class="card-body">
             <h5 class="card-title">{{ item.name }}</h5>
             <p class="card-text">₦{{ item.price }}</p>
-            <router-link :to="`/products/${item.id}`" class="btn btn-outline-primary btn-sm"
+            <router-link :to="`/products/${item.id}`" class="btn btn-outline-primary btn-sm mb-2"
               >View Details</router-link
             >
+            <button class="btn btn-success btn-sm w-100" @click="addToCart(item)">
+              Add to Cart
+            </button>
           </div>
         </div>
       </div>
@@ -59,9 +65,12 @@
           <div class="card-body">
             <h5 class="card-title">{{ item.name }}</h5>
             <p class="card-text">₦{{ item.price }}</p>
-            <router-link :to="`/products/${item.id}`" class="btn btn-outline-primary btn-sm"
+            <router-link :to="`/products/${item.id}`" class="btn btn-outline-primary btn-sm mb-2"
               >View Details</router-link
             >
+            <button class="btn btn-success btn-sm w-100" @click="addToCart(item)">
+              Add to Cart
+            </button>
           </div>
         </div>
       </div>
@@ -85,14 +94,31 @@ export default {
     this.jewelry = data.jewelry || []
     this.perfume = data.perfume || []
   },
+  methods: {
+    addToCart(item) {
+      const cart = JSON.parse(localStorage.getItem('cart') || '[]')
+      const found = cart.find((p) => p.id === item.id)
+      if (found) {
+        found.quantity += 1
+      } else {
+        cart.push({ ...item, quantity: 1 })
+      }
+      localStorage.setItem('cart', JSON.stringify(cart))
+      if (window.showToast) {
+        window.showToast(`${item.name} added to cart!`)
+      } else {
+        alert(`${item.name} added to cart!`)
+      }
+    },
+  },
 }
 </script>
 
 <style scoped>
-.border{
-    width: 99% !important;
-    padding: 10px !important;
-    margin: 10px auto;
+.border {
+  width: 99% !important;
+  padding: 10px !important;
+  margin: 10px auto;
 }
 .card {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);

@@ -12,9 +12,12 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 import Perfume from './components/Perfume.vue'
 import Footers from './components/Footer.vue'
+import HeroSection from "./components/HeroSection.vue"
+
 // import '@fortawesome/fontawesome-free/css/all.css'
 const app = createApp(App)
 app.component('nav-bar', NavBar)
+app.component('hero-section', HeroSection)
 app.component('footers', Footers)
 app.component('perfume', Perfume)
 app.component('cloth', Clothes)

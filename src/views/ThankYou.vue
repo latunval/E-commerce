@@ -1,28 +1,35 @@
 <template>
-  <nav-bar />
-  <div class="thank-you-page">
-    <h2>🎉 Thank You for Your Order!</h2>
-    <p>Your order has been placed successfully.</p>
+  <div>
+    <nav-bar />
+    <div class="thank-you-page">
+      <h2>🎉 Thank You for Your Order!</h2>
+      <p>Your order has been placed successfully.</p>
 
-    <div class="summary">
-      <p><strong>Order ID:</strong> {{ orderId }}</p>
-      <p><strong>Date:</strong> {{ orderDate }}</p>
-      <p><strong>Total:</strong> ₦{{ order?.total }}</p>
+      <div class="summary">
+        <p><strong>Order ID:</strong> {{ orderId }}</p>
+        <p><strong>Date:</strong> {{ orderDate }}</p>
+        <p><strong>Total:</strong> ₦{{ order?.total }}</p>
 
-      <router-link :to="`/invoice/${orderId}`" class="btn btn-outline-dark mt-3">
-        🧾 View/Print Invoice
-      </router-link>
-    </div>
+        <router-link :to="`/invoice/${orderId}`" class="btn btn-outline-dark mt-3">
+          🧾 View/Print Invoice
+        </router-link>
+      </div>
 
-    <div class="links mt-4">
-      <router-link to="/" class="btn btn-primary">🏠 Go to Home</router-link>
-      <router-link to="/account" class="btn btn-secondary">📦 My Orders</router-link>
+      <div class="links mt-4">
+        <router-link to="/" class="btn btn-primary">🏠 Go to Home</router-link>
+        <router-link to="/account" class="btn btn-secondary">📦 My Orders</router-link>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import navBar from '../components/NavBar.vue'
+
 export default {
+  components: {
+    navBar,
+  },
   data() {
     return {
       orderId: '',

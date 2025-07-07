@@ -49,6 +49,21 @@ const router = createRouter({
       name: 'Invoice',
       component: () => import('@/views/Invoice.vue'),
     },
+     {
+      path: '/admin',
+      name: 'admin',
+      component: () => import('@/views/AdminDashBoard.vue'),
+    },
+    {
+      path: '/forget',
+      name: 'forget',
+      component: () => import('@/components/ForgotPassword.vue'),
+    },
+      {
+      path: '/user-dash',
+      name: 'user-dash',
+      component: () => import('@/components/UserDashBoard.vue'),
+    },
   ],
 })
 

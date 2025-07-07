@@ -1,113 +1,115 @@
 <template>
-  <nav-bar />
-  <div class="checkout-page">
-    <h2>🧾 Checkout</h2>
+  <div>
+    <nav-bar />
+    <div class="checkout-page">
+      <h2>🧾 Checkout</h2>
 
-    <div class="checkout-steps">
-      <div
-        v-for="(step, index) in steps"
-        :key="step.id"
-        :class="{ active: currentStep === index, completed: currentStep > index }"
-        @click="goToStep(index)"
-      >
-        {{ step.label }}
+      <div class="checkout-steps">
+        <div
+          v-for="(step, index) in steps"
+          :key="step.id"
+          :class="{ active: currentStep === index, completed: currentStep > index }"
+          @click="goToStep(index)"
+        >
+          {{ step.label }}
+        </div>
       </div>
-    </div>
 
-    <div v-if="currentStep === 0" class="shipping-form">
-      <form @submit.prevent="goToNextStep">
-        <div class="form-group">
-          <label>Full Name</label>
-          <input v-model="form.name" type="text" required />
-        </div>
+      <div v-if="currentStep === 0" class="shipping-form">
+        <form @submit.prevent="goToNextStep">
+          <div class="form-group">
+            <label>Full Name</label>
+            <input v-model="form.name" type="text" required />
+          </div>
 
-        <div class="form-group">
-          <label>Email</label>
-          <input v-model="form.email" type="email" required />
-        </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input v-model="form.email" type="email" required />
+          </div>
 
-        <div class="form-group">
-          <label>Phone Number</label>
-          <input v-model="form.phone" type="tel" required />
-        </div>
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input v-model="form.phone" type="tel" required />
+          </div>
 
-        <div class="form-group">
-          <label>Delivery Address</label>
-          <textarea v-model="form.address" rows="3" required></textarea>
+          <div class="form-group">
+            <label>Delivery Address</label>
+            <textarea v-model="form.address" rows="3" required></textarea>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Continue to Payment</button>
+          </div>
+        </form>
+      </div>
+
+      <div v-if="currentStep === 1" class="payment-section">
+        <PaymentSelection ref="paymentComponent" />
+
+        <div class="wishlist-section" v-if="wishlist.length > 0">
+          <h4>⭐ Items from your Wishlist</h4>
+          <div class="wishlist-items">
+            <div v-for="item in wishlist" :key="item.id" class="wishlist-item">
+              <img :src="item.image" :alt="item.name" />
+              <div class="item-info">
+                <h5>{{ item.name }}</h5>
+                <p>₦{{ item.price.toFixed(2) }}</p>
+                <button @click="addFromWishlist(item)" class="btn btn-sm btn-success">
+                  Add to Order
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="form-actions">
-          <button type="submit" class="btn btn-primary">Continue to Payment</button>
+          <button @click="goToPrevStep" class="btn btn-outline">Back</button>
+          <button @click="goToNextStep" class="btn btn-primary">Review Order</button>
         </div>
-      </form>
-    </div>
+      </div>
 
-    <div v-if="currentStep === 1" class="payment-section">
-      <PaymentSelection ref="paymentComponent" />
+      <div v-if="currentStep === 2" class="review-section">
+        <div class="order-summary">
+          <h4>Order Summary</h4>
+          <div class="shipping-info">
+            <h5>Shipping Information</h5>
+            <p>{{ form.name }}</p>
+            <p>{{ form.address }}</p>
+            <p>{{ form.phone }}</p>
+            <p>{{ form.email }}</p>
+          </div>
 
-      <div class="wishlist-section" v-if="wishlist.length > 0">
-        <h4>⭐ Items from your Wishlist</h4>
-        <div class="wishlist-items">
-          <div v-for="item in wishlist" :key="item.id" class="wishlist-item">
-            <img :src="item.image" :alt="item.name" />
-            <div class="item-info">
-              <h5>{{ item.name }}</h5>
-              <p>₦{{ item.price.toFixed(2) }}</p>
-              <button @click="addFromWishlist(item)" class="btn btn-sm btn-success">
-                Add to Order
-              </button>
+          <div class="payment-info">
+            <h5>Payment Method</h5>
+            <p>{{ paymentMethodDisplay }}</p>
+            <p v-if="paymentMethodNotes" class="payment-note">{{ paymentMethodNotes }}</p>
+          </div>
+
+          <div class="order-items">
+            <h5>Items ({{ cart.length }})</h5>
+            <div v-for="item in cart" :key="item.id" class="order-item">
+              <img :src="item.image" :alt="item.name" />
+              <div class="item-details">
+                <h6>{{ item.name }}</h6>
+                <p>Quantity: {{ item.quantity }}</p>
+                <p>₦{{ (item.price * item.quantity).toFixed(2) }}</p>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
 
-      <div class="form-actions">
-        <button @click="goToPrevStep" class="btn btn-outline">Back</button>
-        <button @click="goToNextStep" class="btn btn-primary">Review Order</button>
-      </div>
-    </div>
-
-    <div v-if="currentStep === 2" class="review-section">
-      <div class="order-summary">
-        <h4>Order Summary</h4>
-        <div class="shipping-info">
-          <h5>Shipping Information</h5>
-          <p>{{ form.name }}</p>
-          <p>{{ form.address }}</p>
-          <p>{{ form.phone }}</p>
-          <p>{{ form.email }}</p>
-        </div>
-
-        <div class="payment-info">
-          <h5>Payment Method</h5>
-          <p>{{ paymentMethodDisplay }}</p>
-          <p v-if="paymentMethodNotes" class="payment-note">{{ paymentMethodNotes }}</p>
-        </div>
-
-        <div class="order-items">
-          <h5>Items ({{ cart.length }})</h5>
-          <div v-for="item in cart" :key="item.id" class="order-item">
-            <img :src="item.image" :alt="item.name" />
-            <div class="item-details">
-              <h6>{{ item.name }}</h6>
-              <p>Quantity: {{ item.quantity }}</p>
-              <p>₦{{ (item.price * item.quantity).toFixed(2) }}</p>
-            </div>
+          <div class="order-total">
+            <p>Subtotal: ₦{{ subtotal.toFixed(2) }}</p>
+            <p>Shipping: ₦{{ shippingFee.toFixed(2) }}</p>
+            <p class="total">Total: ₦{{ totalPrice }}</p>
           </div>
         </div>
 
-        <div class="order-total">
-          <p>Subtotal: ₦{{ subtotal.toFixed(2) }}</p>
-          <p>Shipping: ₦{{ shippingFee.toFixed(2) }}</p>
-          <p class="total">Total: ₦{{ totalPrice }}</p>
+        <div class="review-actions">
+          <button @click="goToPrevStep" class="btn btn-outline">Back</button>
+          <button @click="placeOrder" class="btn btn-success" :disabled="isLoading">
+            {{ isLoading ? 'Processing...' : 'Place Order' }}
+          </button>
         </div>
-      </div>
-
-      <div class="review-actions">
-        <button @click="goToPrevStep" class="btn btn-outline">Back</button>
-        <button @click="placeOrder" class="btn btn-success" :disabled="isLoading">
-          {{ isLoading ? 'Processing...' : 'Place Order' }}
-        </button>
       </div>
     </div>
   </div>
@@ -115,10 +117,12 @@
 
 <script>
 import PaymentSelection from '@/components/PaymentSelection.vue'
+import navBar from '../components/NavBar.vue'
 
 export default {
   components: {
-    PaymentSelection
+    PaymentSelection,
+    navBar
   },
   data() {
     return {
@@ -179,7 +183,7 @@ export default {
 
       if (!user) {
         window.showToast('Please log in to proceed to checkout.')
-        this.$router.push('/auth')
+        this.$router.push('/login')
       }
     },
     loadCart() {

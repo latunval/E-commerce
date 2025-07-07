@@ -1,29 +1,36 @@
 <template>
-  <nav-bar />
-  <div class="account-page">
-    <h2>👤 My Account</h2>
+  <div>
+    <nav-bar />
+    <div class="account-page">
+      <h2>👤 My Account</h2>
 
-    <p><strong>Name:</strong> {{ user.name }}</p>
-    <p><strong>Email:</strong> {{ user.email }}</p>
+      <p><strong>Name:</strong> {{ user.name }}</p>
+      <p><strong>Email:</strong> {{ user.email }}</p>
 
-    <h4 class="mt-4">🧾 Order History</h4>
-    <ul v-if="orders.length">
-      <li v-for="(order, i) in orders" :key="i" class="mb-3 p-2 border rounded bg-light">
-        <div>
-          <strong>Order #{{ i + 1 }}</strong>
-        </div>
-        <div>Total: ₦{{ order.total }}</div>
-        <div>Items: {{ order.items.length }}</div>
-        <div>Date: {{ formatDate(order.placedAt) }}</div>
-        <div>Shipping To: {{ order.shippingInfo.name }}, {{ order.shippingInfo.address }}</div>
-      </li>
-    </ul>
-    <p v-else>No orders yet.</p>
+      <h4 class="mt-4">🧾 Order History</h4>
+      <ul v-if="orders.length">
+        <li v-for="(order, i) in orders" :key="i" class="mb-3 p-2 border rounded bg-light">
+          <div>
+            <strong>Order #{{ i + 1 }}</strong>
+          </div>
+          <div>Total: ₦{{ order.total }}</div>
+          <div>Items: {{ order.items.length }}</div>
+          <div>Date: {{ formatDate(order.placedAt) }}</div>
+          <div>Shipping To: {{ order.shippingInfo.name }}, {{ order.shippingInfo.address }}</div>
+        </li>
+      </ul>
+      <p v-else>No orders yet.</p>
+    </div>
   </div>
 </template>
 
 <script>
+import navBar from '../components/NavBar.vue'
+
 export default {
+  components: {
+    navBar,
+  },
   data() {
     return {
       user: {},
@@ -34,7 +41,7 @@ export default {
     const stored = localStorage.getItem('loggedInUser') || sessionStorage.getItem('loggedInUser')
 
     if (!stored) {
-      this.$router.push('/auth')
+      this.$router.push('/login')
       return
     }
 
