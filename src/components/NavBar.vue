@@ -3,6 +3,9 @@
     <div class="container-fluid">
       <router-link class="navbar-brand logoText" to="/">ELYSIAN</router-link>
 
+          <li class="nav-item" v-if="user">
+            <span class="nav-link">👤 Welcome, {{ user.name }}</span>
+          </li>
       <button
         class="navbar-toggler"
         type="button"
@@ -34,12 +37,7 @@
             </router-link>
           </li>
 
-          <li class="nav-item" v-if="user">
-            <span class="nav-link">👤 Welcome, {{ user.name }}</span>
-          </li>
-          <li class="nav-item" v-if="user">
-            <router-link class="nav-link" to="/account">Account</router-link>
-          </li>
+         
           <li class="nav-item" v-if="user">
             <router-link class="nav-link" to="/user-dash">View Details</router-link>
           </li>
@@ -50,7 +48,7 @@
 
           <li class="nav-item" v-if="user">
             <button @click="logout" class="btn btn-sm btn-outline-danger ms-2">Logout</button>
-          </li>
+          </li> 
         </ul>
       </div>
     </div>
@@ -105,6 +103,9 @@ export default {
   cursor: pointer;
   font-weight: bold;
   font-size: 1.3rem;
+}
+.nav-item{
+  list-style-type: none;
 }
 .navbar-nav .nav-link {
   margin-right: 10px;

@@ -1,47 +1,76 @@
 <template>
-  <div class="user-dashboard">
-    <h2>👤 Welcome, {{ user.name }}</h2>
-    <p><strong>Email:</strong> {{ user.email }}</p>
+  <nav-bar />
 
-    <h3 class="mt-4">📦 My Orders</h3>
-    <div v-if="orders.length === 0">
-      <p>You have not placed any orders yet.</p>
-    </div>
+  <div class="dashboard-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <ul>
+        <li :class="{ active: activeTab === 'profile' }" @click="activeTab = 'profile'">👤 Profile</li>
+        <li :class="{ active: activeTab === 'wishlist' }" @click="activeTab = 'wishlist'">💖 Wishlist</li>
+        <li :class="{ active: activeTab === 'orders' }" @click="activeTab = 'orders'">📦 My Orders</li>
+      </ul>
+    </aside>
 
-    <div v-else class="orders">
-      <div v-for="(order, i) in orders" :key="order.id" class="order-card">
-        <h4>Order #{{ order.id }}</h4>
-        <p><strong>Date:</strong> {{ formatDate(order.placedAt) }}</p>
-        <p><strong>Status:</strong>
-          <span :class="'status-' + order.status">{{ orderStatus(order.status) }}</span>
-        </p>
-        <p><strong>Total:</strong> ₦{{ order.total }}</p>
+    <!-- Main Content -->
+    <div class="dashboard-content">
+      <!-- Profile Section -->
+      <div v-if="activeTab === 'profile'">
+        <h2>👤 Welcome, {{ user.name }}</h2>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+      </div>
 
-        <div v-if="order.payment?.proofUrl">
-          <p><strong>Payment Proof:</strong></p>
-          <img
-            v-if="isImage(order.payment.proofUrl)"
-            :src="order.payment.proofUrl"
-            class="proof-img"
-            @click="openModal(order.payment.proofUrl)"
-          />
-          <a v-else :href="order.payment.proofUrl" target="_blank">View Document</a>
+      <!-- Wishlist Section -->
+      <div v-if="activeTab === 'wishlist'">
+        <wish-list />
+      </div>
+
+      <!-- Orders Section -->
+      <div v-if="activeTab === 'orders'">
+        <h3>📦 My Orders</h3>
+
+        <div v-if="orders.length === 0">
+          <p>You have not placed any orders yet.</p>
         </div>
 
-        <div v-else-if="order.status === 'pending'" class="upload-section">
-          <label><strong>Upload Payment Proof:</strong></label>
-          <input type="file" @change="uploadProof($event, order.id)" />
-        </div>
+        <div v-else class="orders">
+          <div v-for="order in orders" :key="order.id" class="order-card">
+            <h4>Order #{{ order.id }}</h4>
+            <p><strong>Date:</strong> {{ formatDate(order.placedAt) }}</p>
+            <p><strong>Status:</strong>
+              <span :class="'status-' + order.status">{{ orderStatus(order.status) }}</span>
+            </p>
+            <p><strong>Total:</strong> ₦{{ order.total }}</p>
 
-        <div v-if="order.status === 'payment_failed'" class="retry-box">
-          <p class="error">Payment was rejected. Reason: {{ order.rejectionReason || 'Not provided' }}</p>
-          <label>Re-upload Payment Proof:</label>
-          <input type="file" @change="uploadProof($event, order.id)" />
+            <!-- Payment Proof -->
+            <div v-if="order.payment?.proofUrl">
+              <p><strong>Payment Proof:</strong></p>
+              <img
+                v-if="isImage(order.payment.proofUrl)"
+                :src="order.payment.proofUrl"
+                class="proof-img"
+                @click="openModal(order.payment.proofUrl)"
+              />
+              <a v-else :href="order.payment.proofUrl" target="_blank">View Document</a>
+            </div>
+
+            <!-- Upload Proof (Pending) -->
+            <div v-else-if="order.status === 'pending'" class="upload-section">
+              <label><strong>Upload Payment Proof:</strong></label>
+              <input type="file" @change="uploadProof($event, order.id)" />
+            </div>
+
+            <!-- Rejected -->
+            <div v-if="order.status === 'payment_failed'" class="retry-box">
+              <p class="error">Payment was rejected. Reason: {{ order.rejectionReason || 'Not provided' }}</p>
+              <label>Re-upload Payment Proof:</label>
+              <input type="file" @change="uploadProof($event, order.id)" />
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Modal Preview -->
+    <!-- Image Modal -->
     <div v-if="showImageModal" class="image-modal" @click.self="showImageModal = false">
       <div class="modal-content">
         <img :src="modalImageUrl" />
@@ -57,6 +86,7 @@ export default {
     return {
       user: {},
       orders: [],
+      activeTab: 'orders',
       showImageModal: false,
       modalImageUrl: ''
     }
@@ -118,14 +148,52 @@ export default {
 </script>
 
 <style scoped>
-.user-dashboard {
-  max-width: 800px;
+.dashboard-layout {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  max-width: 1000px;
   margin: auto;
+}
+
+.sidebar {
+  width: 200px;
+  background: #f7f7f7;
+  border-right: 1px solid #ddd;
+  border-radius: 8px;
   padding: 20px;
 }
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  padding: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.sidebar li:hover {
+  background: #e0e0e0;
+}
+
+.sidebar li.active {
+  background: #42b983;
+  color: white;
+  font-weight: bold;
+}
+
+.dashboard-content {
+  flex: 1;
+}
+
 .orders {
   margin-top: 20px;
 }
+
 .order-card {
   background: #fff;
   border: 1px solid #ddd;
@@ -133,18 +201,22 @@ export default {
   margin-bottom: 15px;
   border-radius: 8px;
 }
+
 .proof-img {
   max-width: 100px;
   border: 1px solid #ccc;
   cursor: pointer;
 }
+
 .upload-section,
 .retry-box {
   margin-top: 10px;
 }
+
 .retry-box .error {
   color: #d32f2f;
 }
+
 .status-pending {
   color: #ff9800;
 }
@@ -154,6 +226,7 @@ export default {
 .status-payment_failed {
   color: #f44336;
 }
+
 .image-modal {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
@@ -161,14 +234,18 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 1000;
 }
+
 .modal-content {
   position: relative;
 }
+
 .modal-content img {
   max-width: 90vw;
   max-height: 80vh;
 }
+
 .close-modal {
   position: absolute;
   top: -30px;

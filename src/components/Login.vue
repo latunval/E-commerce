@@ -2,15 +2,17 @@
   <div class="auth-page">
     <div class="auth-card">
       <h2>{{ isLogin ? 'Welcome Back' : 'Create Your Account' }}</h2>
-      <p class="subtitle">{{ isLogin ? 'Login to continue shopping' : 'Join Elysian Fashion Hub' }}</p>
+      <p class="subtitle">
+        {{ isLogin ? 'Login to continue shopping' : 'Join Elysian Fashion Hub' }}
+      </p>
 
       <form @submit.prevent="submitForm">
         <div class="form-group">
           <label>Email</label>
-          <input 
-            v-model="form.email" 
-            type="email" 
-            required 
+          <input
+            v-model="form.email"
+            type="email"
+            required
             placeholder="your@email.com"
             :class="{ 'is-invalid': errors.email }"
           />
@@ -19,10 +21,10 @@
 
         <div class="form-group">
           <label>Password</label>
-          <input 
-            v-model="form.password" 
-            :type="showPassword ? 'text' : 'password'" 
-            required 
+          <input
+            v-model="form.password"
+            :type="showPassword ? 'text' : 'password'"
+            required
             placeholder="••••••••"
             :class="{ 'is-invalid': errors.password }"
           />
@@ -34,14 +36,35 @@
 
         <div class="form-group" v-if="!isLogin">
           <label>Full Name</label>
-          <input 
-            v-model="form.name" 
-            type="text" 
-            required 
+          <input
+            v-model="form.name"
+            type="text"
+            required
             placeholder="Your full name"
             :class="{ 'is-invalid': errors.name }"
           />
           <span class="error-message" v-if="errors.name">{{ errors.name }}</span>
+        </div>
+
+        <div class="form-group" v-if="!isLogin">
+          <label>Phone Number</label>
+          <div style="display: flex; gap: 10px">
+            <select v-model="form.countryCode" required>
+              <option value="+234">🇳🇬 +234</option>
+              <option value="+1">🇺🇸 +1</option>
+              <option value="+44">🇬🇧 +44</option>
+              <option value="+91">🇮🇳 +91</option>
+              <!-- Add more as needed -->
+            </select>
+            <input
+              v-model="form.phone"
+              type="tel"
+              required
+              placeholder="8123456789"
+              :class="{ 'is-invalid': errors.phone }"
+            />
+          </div>
+          <span class="error-message" v-if="errors.phone">{{ errors.phone }}</span>
         </div>
 
         <div class="form-options">
@@ -49,15 +72,13 @@
             <input type="checkbox" v-model="rememberMe" />
             <span>Remember Me</span>
           </label>
-          <router-link to="/forget" v-if="isLogin" class="forgot-password">
+          <router-link to="/forgot-password" v-if="isLogin" class="forgot-password">
             Forgot Password?
           </router-link>
         </div>
 
         <button type="submit" class="btn btn-primary" :disabled="isSubmitting">
-          <span v-if="isSubmitting">
-            <i class="fas fa-spinner fa-spin"></i> Processing...
-          </span>
+          <span v-if="isSubmitting"> <i class="fas fa-spinner fa-spin"></i> Processing... </span>
           <span v-else>
             {{ isLogin ? 'Login' : 'Sign Up' }}
           </span>
@@ -97,141 +118,152 @@ export default {
       form: {
         email: '',
         password: '',
-        name: ''
+        name: '',
+        phone: '',
+        countryCode: '+234',
       },
       errors: {
         email: '',
         password: '',
-        name: ''
-      }
+        name: '',
+        phone: ''
+      },
     }
   },
   mounted() {
-    this.checkExistingSession();
+    this.checkExistingSession()
   },
   methods: {
     checkExistingSession() {
-      const user = localStorage.getItem('loggedInUser') || sessionStorage.getItem('loggedInUser');
+      const user = localStorage.getItem('loggedInUser') || sessionStorage.getItem('loggedInUser')
       if (user) {
-        this.$router.push('/');
+        this.$router.push('/')
       }
     },
-    
+
     toggleAuthMode() {
-      this.isLogin = !this.isLogin;
-      this.resetForm();
+      this.isLogin = !this.isLogin
+      this.resetForm()
     },
-    
+
     resetForm() {
       this.form = {
-        email: this.form.email, // Keep email when toggling
+        email: this.form.email,
         password: '',
-        name: ''
-      };
+        name: '',
+        phone: '',
+        countryCode: '+234',
+      }
       this.errors = {
         email: '',
         password: '',
-        name: ''
-      };
+        name: '',
+        phone: ''
+      }
     },
-    
+
     validateForm() {
-      let isValid = true;
-      this.errors = { email: '', password: '', name: '' };
-      
-      // Email validation
+      let isValid = true
+      this.errors = { email: '', password: '', name: '', phone: '' }
+
       if (!this.form.email) {
-        this.errors.email = 'Email is required';
-        isValid = false;
+        this.errors.email = 'Email is required'
+        isValid = false
       } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.form.email)) {
-        this.errors.email = 'Please enter a valid email';
-        isValid = false;
+        this.errors.email = 'Please enter a valid email'
+        isValid = false
       }
-      
-      // Password validation
+
       if (!this.form.password) {
-        this.errors.password = 'Password is required';
-        isValid = false;
+        this.errors.password = 'Password is required'
+        isValid = false
       } else if (this.form.password.length < 6) {
-        this.errors.password = 'Password must be at least 6 characters';
-        isValid = false;
+        this.errors.password = 'Password must be at least 6 characters'
+        isValid = false
       }
-      
-      // Name validation (for signup)
+
       if (!this.isLogin && !this.form.name.trim()) {
-        this.errors.name = 'Full name is required';
-        isValid = false;
+        this.errors.name = 'Full name is required'
+        isValid = false
       }
-      
-      return isValid;
+
+      if (!this.isLogin && !this.form.phone.trim()) {
+        this.errors.phone = 'Phone number is required'
+        isValid = false
+      }
+
+      return isValid
     },
-    
+
     async submitForm() {
-      if (!this.validateForm()) return;
-      
-      this.isSubmitting = true;
-      
+      if (!this.validateForm()) return
+      this.isSubmitting = true
+
       try {
         if (this.isLogin) {
-          await this.handleLogin();
+          await this.handleLogin()
         } else {
-          await this.handleSignup();
+          await this.handleSignup()
         }
       } catch (error) {
-        window.showToast(error.message || 'An error occurred. Please try again.');
+        window.showToast(error.message || 'An error occurred. Please try again.')
       } finally {
-        this.isSubmitting = false;
+        this.isSubmitting = false
       }
     },
-    
+
     async handleLogin() {
-      const users = JSON.parse(localStorage.getItem('users') || []);
-      const user = users.find(u => u.email === this.form.email && u.password === this.form.password);
-      
-      if (!user) {
-        throw new Error('Invalid email or password');
+      let users = [];
+      try {
+        users = JSON.parse(localStorage.getItem('users') || '[]');
+      } catch (e) {
+        users = [];
       }
-      
-      // Special admin login
-      if (user.email === "valentino@gmail.com") {
-        this.$router.push('/admin');
-        return;
+      const user = users.find(
+        u => u.email === this.form.email && u.password === this.form.password
+      )
+      if (!user) throw new Error('Invalid email or password')
+      // Prevent normal users from logging in as admin
+      if (user.email === 'valentino@gmail.com') {
+        if (this.form.email !== 'valentino@gmail.com' || this.form.password !== user.password) {
+          throw new Error('Unauthorized admin access')
+        }
+        this.saveUserSession(user)
+        window.showToast('Admin logged in!', 'success')
+        this.$router.push('/admin')
+        return
       }
-      
-      this.saveUserSession(user);
-      window.showToast('Logged in successfully!', 'success');
-      this.$router.push('/');
+      // Prevent admin from logging in as user
+      if (this.form.email === 'valentino@gmail.com') {
+        throw new Error('Unauthorized admin access')
+      }
+      this.saveUserSession(user)
+      window.showToast('Logged in successfully!', 'success')
+      this.$router.push('/')
     },
-    
+
     async handleSignup() {
-      const users = JSON.parse(localStorage.getItem('users') || []);
-      
-      if (users.some(u => u.email === this.form.email)) {
-        throw new Error('Email already in use');
-      }
-      
-      const newUser = { 
+      let users = JSON.parse(localStorage.getItem('users') || '[]')
+      if (users.some(u => u.email === this.form.email)) throw new Error('Email already in use')
+      const newUser = {
         id: Date.now().toString(),
         ...this.form,
         createdAt: new Date().toISOString()
-      };
-      
-      users.push(newUser);
-      localStorage.setItem('users', JSON.stringify(users));
-      
-      this.saveUserSession(newUser);
-      window.showToast('Account created successfully!', 'success');
-      this.$router.push('/');
+      }
+      users.push(newUser)
+      localStorage.setItem('users', JSON.stringify(users))
+      this.saveUserSession(newUser)
+      window.showToast('Account created successfully!', 'success')
+      this.$router.push('/')
     },
-    
+
     saveUserSession(user) {
-      const storage = this.rememberMe ? localStorage : sessionStorage;
-      storage.setItem('loggedInUser', JSON.stringify(user));
+      const storage = this.rememberMe ? localStorage : sessionStorage
+      storage.setItem('loggedInUser', JSON.stringify(user))
     },
-    
+
     socialLogin(provider) {
-      // In a real app, implement proper OAuth flow
-      window.showToast(`${provider} login would be implemented here`, 'info');
+      window.showToast(`${provider} login would be implemented here`, 'info')
     }
   }
 }
@@ -384,8 +416,9 @@ input.is-invalid {
   font-size: 0.9rem;
 }
 
-.divider::before, .divider::after {
-  content: "";
+.divider::before,
+.divider::after {
+  content: '';
   flex: 1;
   border-bottom: 1px solid #ddd;
 }
@@ -426,7 +459,7 @@ input.is-invalid {
 }
 
 .social-btn.facebook {
-  color: #4267B2;
+  color: #4267b2;
 }
 
 .toggle-account {
@@ -449,7 +482,7 @@ input.is-invalid {
   .auth-card {
     padding: 30px 20px;
   }
-  
+
   .social-buttons {
     flex-direction: column;
   }

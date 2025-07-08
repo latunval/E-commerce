@@ -14,8 +14,10 @@ import Perfume from './components/Perfume.vue'
 import Footers from './components/Footer.vue'
 import HeroSection from "./components/HeroSection.vue"
 
-// import '@fortawesome/fontawesome-free/css/all.css'
+import '@fortawesome/fontawesome-free/css/all.css'
+import WishList from "./components/WishList.vue"
 const app = createApp(App)
+app.component('wish-list', WishList)
 app.component('nav-bar', NavBar)
 app.component('hero-section', HeroSection)
 app.component('footers', Footers)

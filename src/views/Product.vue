@@ -1,18 +1,16 @@
 <template>
-    <div>
-<nav-bar />
-<cloth />
-    </div>
+  <div>
+    <nav-bar />
+    <cloth />
+  </div>
 </template>
 
 <script>
 import navBar from '../components/NavBar.vue'
 import cloth from '../components/Clothes.vue'
 export default {
-  components: { navBar, cloth }
+  components: { navBar, cloth },
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

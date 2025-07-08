@@ -1,11 +1,11 @@
 <template>
   <div id="app">
-    <router-view v-slot="{ Component }">
+    <!-- <router-view v-slot="{ Component }">
       <transition name="fade" mode="out-in">
         <component :is="Component" />
       </transition>
-    </router-view>
-
+    </router-view> -->
+<RouterView />
     <!-- GLOBAL LOADER -->
     <div v-if="loading" class="overlay">
       <div class="spinner-border text-light" role="status"></div>
@@ -17,10 +17,7 @@
       class="toast-container position-fixed bottom-0 end-0 p-3"
       style="z-index: 9999"
     >
-      <div
-        class="toast show align-items-center text-white bg-success border-0"
-        role="alert"
-      >
+      <div class="toast show align-items-center text-white bg-success border-0" role="alert">
         <div class="d-flex">
           <div class="toast-body">
             {{ toast.message }}
@@ -43,8 +40,8 @@ export default {
     return {
       loading: false,
       toast: {
-        message: ''
-      }
+        message: '',
+      },
     }
   },
   watch: {
@@ -53,7 +50,7 @@ export default {
       setTimeout(() => {
         this.loading = false
       }, 600)
-    }
+    },
   },
   created() {
     // Global toast function (can be called from anywhere)
@@ -63,7 +60,7 @@ export default {
         this.toast.message = ''
       }, 3000)
     }
-  }
+  },
 }
 </script>
 
@@ -80,10 +77,12 @@ export default {
 }
 
 /* Fade transition */
-.fade-enter-active, .fade-leave-active {
+.fade-enter-active,
+.fade-leave-active {
   transition: opacity 0.5s ease;
 }
-.fade-enter-from, .fade-leave-to {
+.fade-enter-from,
+.fade-leave-to {
   opacity: 0;
 }
 </style>

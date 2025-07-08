@@ -122,7 +122,7 @@ import navBar from '../components/NavBar.vue'
 export default {
   components: {
     PaymentSelection,
-    navBar
+    navBar,
   },
   data() {
     return {
@@ -130,19 +130,19 @@ export default {
       steps: [
         { id: 'shipping', label: 'Shipping' },
         { id: 'payment', label: 'Payment' },
-        { id: 'review', label: 'Review' }
+        { id: 'review', label: 'Review' },
       ],
       form: {
         name: '',
         email: '',
         phone: '',
-        address: ''
+        address: '',
       },
       cart: [],
       wishlist: [],
       shippingFee: 1500,
       isLoading: false,
-      formErrors: {}
+      formErrors: {},
     }
   },
   computed: {
@@ -156,7 +156,7 @@ export default {
       const method = this.$refs.paymentComponent?.selectedMethod
       if (!method) return ''
 
-      const found = this.$refs.paymentComponent.paymentMethods.find(m => m.id === method)
+      const found = this.$refs.paymentComponent.paymentMethods.find((m) => m.id === method)
       return found ? found.name : ''
     },
     paymentMethodNotes() {
@@ -168,7 +168,7 @@ export default {
         return 'Please complete payment and upload proof'
       }
       return ''
-    }
+    },
   },
   mounted() {
     this.loadCart()
@@ -177,9 +177,7 @@ export default {
   },
   methods: {
     checkAuth() {
-      const user =
-        localStorage.getItem('loggedInUser') ||
-        sessionStorage.getItem('loggedInUser')
+      const user = localStorage.getItem('loggedInUser') || sessionStorage.getItem('loggedInUser')
 
       if (!user) {
         window.showToast('Please log in to proceed to checkout.')
@@ -195,7 +193,7 @@ export default {
       this.wishlist = storedWishlist ? JSON.parse(storedWishlist) : []
     },
     addFromWishlist(item) {
-      const existingItem = this.cart.find(cartItem => cartItem.id === item.id)
+      const existingItem = this.cart.find((cartItem) => cartItem.id === item.id)
       if (existingItem) {
         existingItem.quantity += 1
       } else {
@@ -275,7 +273,7 @@ export default {
     async placeOrder() {
       console.log('Attempting to place order...') // Debug log
 
-      if(this.isLoading) return
+      if (this.isLoading) return
 
       // Final form validation
       const formValid = this.validateForm()
@@ -324,25 +322,25 @@ export default {
           customer: {
             id: userData.id,
             name: userData.name,
-            email: userData.email
+            email: userData.email,
           },
           shippingInfo: { ...this.form },
           payment: {
             ...paymentData,
-            status: paymentData.method === 'pay_on_delivery' ? 'pending' : 'pending_verification'
+            status: paymentData.method === 'pay_on_delivery' ? 'pending' : 'pending_verification',
           },
-          items: this.cart.map(item => ({
+          items: this.cart.map((item) => ({
             id: item.id,
             name: item.name,
             price: item.price,
             quantity: item.quantity,
-            image: item.image
+            image: item.image,
           })),
           subtotal: this.subtotal,
           shippingFee: this.shippingFee,
           total: this.totalPrice,
           status: 'pending',
-          placedAt: new Date().toISOString()
+          placedAt: new Date().toISOString(),
         }
 
         console.log('Order object:', order) // Debug log
@@ -360,19 +358,18 @@ export default {
         window.showToast('🎉 Order placed successfully!')
 
         // Navigate to thank you page
-        this.$router.push('/thank-you').catch(err => {
+        this.$router.push('/thank-you').catch((err) => {
           console.error('Navigation error:', err)
           this.$router.push('/account') // Fallback
         })
-
       } catch (error) {
         console.error('Order placement error:', error)
         window.showToast(error.message || 'Failed to place order. Please try again.')
       } finally {
         this.isLoading = false
       }
-    }
-  }
+    },
+  },
 }
 </script>
 

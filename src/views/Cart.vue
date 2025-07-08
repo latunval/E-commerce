@@ -21,7 +21,12 @@
               <input type="number" v-model.number="item.quantity" @change="updateCart" min="1" />
             </label>
 
-            <button class="btn btn-sm btn-danger" @click="removeItem(index)">Remove</button>
+            <div class="actions">
+              <button class="btn btn-sm btn-danger" @click="removeItem(index)">Remove</button>
+              <button class="btn btn-sm btn-outline" @click="moveToWishlist(index)">
+                ❤️ Move to Wishlist
+              </button>
+            </div>
           </div>
         </div>
 
@@ -63,6 +68,15 @@ export default {
       this.cart.splice(index, 1)
       this.updateCart()
     },
+    moveToWishlist(index) {
+      const item = this.cart[index]
+      const wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]')
+      wishlist.push(item)
+      localStorage.setItem('wishlist', JSON.stringify(wishlist))
+
+      this.removeItem(index)
+      alert('Item moved to wishlist!')
+    }
   },
 }
 </script>
@@ -88,6 +102,9 @@ export default {
 .info {
   flex: 1;
 }
+.actions {
+  margin-top: 8px;
+}
 input[type='number'] {
   width: 60px;
   margin-left: 8px;
@@ -95,5 +112,11 @@ input[type='number'] {
 .summary {
   text-align: right;
   margin-top: 20px;
+}
+.btn-outline {
+  background: transparent;
+  border: 1px solid #999;
+  color: #333;
+  margin-left: 8px;
 }
 </style>

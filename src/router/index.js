@@ -35,11 +35,6 @@ const router = createRouter({
       component: () => import('@/views/CheckOut.vue'),
     },
     {
-      path: '/account',
-      name: 'Account',
-      component: () => import('@/views/Account.vue'),
-    },
-    {
       path: '/thank-you',
       name: 'ThankYou',
       component: () => import('@/views/ThankYou.vue'), // or './pages/ThankYou.vue'
@@ -62,7 +57,7 @@ const router = createRouter({
       {
       path: '/user-dash',
       name: 'user-dash',
-      component: () => import('@/components/UserDashBoard.vue'),
+      component: () => import('@/views/UserDashBoard.vue'),
     },
   ],
 })
