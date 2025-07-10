@@ -5,24 +5,11 @@
         <p>
           <span>{{ item.name }}</span> <span>₦{{ item.price }}</span>
         </p>
-        <img :src="item.image" :alt="item.name" @click="view(item.id)" style="cursor: pointer" />
-        <p @click="view(item.id)" class="view-link" style="cursor: pointer; color: #007bff">
+        <img :src="item.image" :alt="item.name" @click="goToDetails(item.id)" style="cursor: pointer" />
+        <p @click="goToDetails(item.id)" class="view-link" style="cursor: pointer; color: #007bff">
           View Details
-          <span
-            v-if="loadingId === item.id"
-            class="spinner-grow spinner-grow-sm"
-            role="status"
-            style="
-              background-color: red;
-              display: inline-block;
-              margin-left: 8px;
-              vertical-align: middle;
-            "
-          >
-            <span class="visually-hidden text-danger">Loading...</span>
-          </span>
         </p>
-        <button class="btn btn-success btn-sm mt-2" @click.stop="addToCart(item)">
+        <button class="btn btn-primary btn-sm mt-2" @click.stop="addToCart(item)">
           Add to Cart
         </button>
       </div>
@@ -46,11 +33,7 @@ export default {
     this.product = supply.clothes
   },
   methods: {
-    view(itemId) {
-      this.loadingId = itemId
-      setTimeout(() => {
-        this.loadingId = null
-      }, 1500) // Spinner will show for 1.5 seconds
+    goToDetails(itemId) {
       this.$router.push(`/products/${itemId}`)
     },
     addToCart(item) {

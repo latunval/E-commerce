@@ -37,7 +37,7 @@
       <div class="footer-section">
         <h4>Contact Us</h4>
         <ul class="contact-info">
-          <li><i class="fas fa-map-marker-alt"></i> 123 Fashion St, Lagos, Nigeria</li>
+          <li><i class="fas fa-map-marker-alt"></i> 123 Fashion St, Ijebo Ode, OgunState, Nigeria</li>
           <li><i class="fas fa-phone"></i> +234 812 345 6789</li>
           <li><i class="fas fa-envelope"></i> info@elysianfashion.com</li>
           <li><i class="fas fa-clock"></i> Mon-Fri: 9AM - 6PM</li>

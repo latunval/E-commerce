@@ -1,24 +1,19 @@
 <template>
   <div>
-      <section>
+    <section>
       <div class="product" v-for="item in product" :key="item.id">
         <p>
           <span>{{ item.name }}</span> <span>₦{{ item.price }}</span>
         </p>
 
-        <img :src="item.image" :alt="item.name" @click="view(item.id)" />
-
-        <p @click="view(item.id)" class="view-link">
+        <img :src="item.image" :alt="item.name" @click="goToDetails(item.id)" />
+        <p @click="goToDetails(item.id)" class="view-link" style="cursor: pointer; color: #007bff">
           View Details
-          <span v-if="loadingId === item.id" class="spinner-grow spinner-grow-sm" role="status"
-            style="background-color: red; display: inline-block; margin-left: 8px; vertical-align: middle;">
-            <span class="visually-hidden text-danger">Loading...</span>
-          </span>
         </p>
-        <button class="btn btn-success btn-sm mt-2" @click.stop="addToCart(item)">
-  Add to Cart
-</button>
 
+        <button class="btn btn-primary btn-sm mt-2" @click.stop="addToCart(item)">
+          Add to Cart
+        </button>
       </div>
     </section>
   </div>
@@ -28,37 +23,44 @@
 export default {
   data() {
     return {
-      product: null,
+      product: [],
       loadingId: null,
     }
   },
   async mounted() {
-    const response = await fetch('/product.json')
-    const supply = await response.json()
-    console.log(supply)
-    this.product = supply.perfume
+    try {
+      const response = await fetch('/product.json')
+      const supply = await response.json()
+      const staticProducts = supply.perfume || []
+
+      const localProducts = JSON.parse(localStorage.getItem('products') || '[]')
+
+      // Filter only perfumes from local storage
+      const localPerfumes = localProducts.filter(p => p.category === 'perfume')
+
+      this.product = staticProducts;
+      this.product.push(...localPerfumes)
+    } catch (error) {
+      console.error('Failed to load products:', error)
+      const localProducts = JSON.parse(localStorage.getItem('products') || '[]')
+      this.product = localProducts.filter(p => p.category === 'perfume')
+    }
   },
   methods: {
-    view(item) {
-      this.loadingId = item;
-      setTimeout(() => {
-        this.loadingId = null;
-      }, 15000); // Spinner will show for 1.5 seconds
-      this.$router.push(`/products/${item}`)
+    goToDetails(itemId) {
+      this.$router.push(`/products/${itemId}`)
     },
     addToCart(item) {
-    const cart = JSON.parse(localStorage.getItem('cart') || '[]')
-
-    const found = cart.find(p => p.id === item.id)
-    if (found) {
-      found.quantity += 1
-    } else {
-      cart.push({ ...item, quantity: 1 })
-    }
-
-    localStorage.setItem('cart', JSON.stringify(cart))
-    window.showToast(`${item.name} added to cart!`)
-  },
+      const cart = JSON.parse(localStorage.getItem('cart') || '[]')
+      const found = cart.find(p => p.id === item.id)
+      if (found) {
+        found.quantity += 1
+      } else {
+        cart.push({ ...item, quantity: 1 })
+      }
+      localStorage.setItem('cart', JSON.stringify(cart))
+      window.showToast(`${item.name} added to cart!`)
+    },
   },
 }
 </script>

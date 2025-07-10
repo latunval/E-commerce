@@ -75,8 +75,8 @@ export default {
     // Combine all categories
     const allProducts = [...(data.clothes || []), ...(data.jewelry || []), ...(data.perfume || [])]
 
-    const id = Number(this.$route.params.id)
-    this.product = allProducts.find((p) => p.id === id) || null
+    const id = this.$route.params.id
+    this.product = allProducts.find((p) => String(p.id) === String(id)) || null
   },
 }
 </script>

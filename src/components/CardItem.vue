@@ -20,7 +20,7 @@
             <router-link :to="`/products/${item.id}`" class="btn btn-outline-primary btn-sm mb-2"
               >View Details</router-link
             >
-            <button class="btn btn-success btn-sm w-100" @click="addToCart(item)">
+            <button class="btn btn-primary btn-sm w-100" @click="addToCart(item)">
               Add to Cart
             </button>
           </div>
@@ -44,7 +44,7 @@
             <router-link :to="`/products/${item.id}`" class="btn btn-outline-primary btn-sm mb-2"
               >View Details</router-link
             >
-            <button class="btn btn-success btn-sm w-100" @click="addToCart(item)">
+            <button class="btn btn-primary btn-sm w-100" @click="addToCart(item)">
               Add to Cart
             </button>
           </div>
@@ -68,7 +68,7 @@
             <router-link :to="`/products/${item.id}`" class="btn btn-outline-primary btn-sm mb-2"
               >View Details</router-link
             >
-            <button class="btn btn-success btn-sm w-100" @click="addToCart(item)">
+            <button class="btn btn-primary btn-sm w-100" @click="addToCart(item)">
               Add to Cart
             </button>
           </div>
